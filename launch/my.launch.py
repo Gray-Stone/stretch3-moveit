@@ -93,22 +93,22 @@ def generate_launch_description():
         executable="move_group",
         output="screen",
         parameters=[
-            # moveit_config.to_dict(),
+            moveit_config.to_dict(),
             # {
             #     'robot_description_semantic': moveit_config.robot_description_semantic,
 
             # },
             # robot_params,
             # Each filed of moveit_config is a dict, with correct param name in the key
-            moveit_config.robot_description_semantic,
-            moveit_config.trajectory_execution,
+            # moveit_config.robot_description_semantic,
+            # moveit_config.trajectory_execution,
             {
                 "publish_robot_description_semantic": True,
                 "allow_trajectory_execution": True,
                 "publish_planning_scene": True,
                 "publish_geometry_updates": True,
-                "publish_state_updates": True,
-                "publish_transforms_updates": True,
+                "publish_state_updates": False,
+                "publish_transforms_updates": False,
             }
         ],
     )
@@ -119,33 +119,55 @@ def generate_launch_description():
 
     # Run Rviz and load the default config to see the state of the move_group node
     ld.add_action(
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                str(moveit_config.package_path / "launch/moveit_rviz.launch.py")
-            ),
-            condition=IfCondition(LaunchConfiguration("use_rviz")),
+        DeclareLaunchArgument(
+            "rviz_config",
+            default_value=str(moveit_config.package_path / "config/moveit.rviz"),
         )
     )
 
+    rviz_parameters = [
+        moveit_config.planning_pipelines,
+        # We don't provide this, expects it to get it from topics.
+        # moveit_config.robot_description_kinematics,
+    ]
 
-    # Fake joint driver
-    ld.add_action(
-        Node(
-            package="controller_manager",
-            executable="ros2_control_node",
-            parameters=[
-                moveit_config.robot_description,
-                str(moveit_config.package_path / "config/ros2_controllers.yaml"),
-            ],
-        )
+    rviz_node = Node(
+        package="rviz2",
+        executable="rviz2",
+        condition=IfCondition(LaunchConfiguration("use_rviz")),
+        arguments=["-d", LaunchConfiguration("rviz_config")],
+        parameters=rviz_parameters,
     )
 
-    ld.add_action(
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                str(moveit_config.package_path / "launch/spawn_controllers.launch.py")
-            ),
-        )
-    )
+    ld.add_action(rviz_node)
+
+
+    # # Fake joint driver
+    # ld.add_action(
+    #     Node(
+    #         package="controller_manager",
+    #         executable="ros2_control_node",
+    #         parameters=[
+    #             moveit_config.robot_description,
+    #             str(moveit_config.package_path / "config/ros2_controllers.yaml"),
+    #         ],
+    #     )
+    # )
+
+
+    # # The moveit_config.trajectory_execution is a dict that loads in the content of `moveit_controller.yaml`
+    # controller_names = moveit_config.trajectory_execution.get(
+    #     "moveit_simple_controller_manager", {}
+    # ).get("controller_names", [])
+    # for controller in controller_names + ["joint_state_broadcaster"]:
+    #     ld.add_action(
+    #         Node(
+    #             package="controller_manager",
+    #             executable="spawner",
+    #             arguments=[controller],
+    #             output="screen",
+    #         )
+    #     )
+
 
     return ld
