@@ -472,6 +472,7 @@
     <disable_collisions link1="link_head_nav_cam" link2="link_wrist_yaw_bottom" reason="Never"/>
     <disable_collisions link1="link_head_nav_cam" link2="respeaker_base" reason="Never"/>
     <disable_collisions link1="link_head_pan" link2="link_head_tilt" reason="Adjacent"/>
+    <disable_collisions link1="link_head_pan" link2="link_head_nav_can" reason="Adjacent"/>
     <disable_collisions link1="link_head_pan" link2="link_left_wheel" reason="Never"/>
     <disable_collisions link1="link_head_pan" link2="link_mast" reason="Never"/>
     <disable_collisions link1="link_head_pan" link2="link_right_wheel" reason="Never"/>
