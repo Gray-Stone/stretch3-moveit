@@ -4,11 +4,11 @@ moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControll
 
 moveit_simple_controller_manager:
   controller_names:
-    - stretch_arm_controller
+    - stretch_controller
     - position_controller
     - mobile_base_arm_controller
 
-  stretch_arm_controller:
+  stretch_controller:
     type: FollowJointTrajectory
     action_ns: follow_joint_trajectory
     default: true
@@ -21,23 +21,29 @@ moveit_simple_controller_manager:
       - joint_wrist_yaw
       - joint_wrist_pitch
       - joint_wrist_roll
-  position_controller:
-    type: FollowJointTrajectory
-    action_ns: follow_joint_trajectory
-    default: true
-    joints:
+      # These are not in the arm group. But since driver only have 1 unified controller. 
+      # This is also how PickNik example is setup 
+      - joint_gripper_finger_left
+      - joint_gripper_finger_right
       - position
-  mobile_base_arm_controller:
-    type: FollowJointTrajectory
-    action_ns: follow_joint_trajectory
-    default: true
-    joints:
-      - position
-      - joint_lift
-      - joint_arm_l3
-      - joint_arm_l2
-      - joint_arm_l1
-      - joint_arm_l0
-      - joint_wrist_yaw
-      - joint_wrist_pitch
-      - joint_wrist_roll
+
+  # position_controller:
+  #   type: FollowJointTrajectory
+  #   action_ns: follow_joint_trajectory
+  #   default: true
+  #   joints:
+  #     - position
+  # mobile_base_arm_controller:
+  #   type: FollowJointTrajectory
+  #   action_ns: follow_joint_trajectory
+  #   default: true
+  #   joints:
+  #     - position
+  #     - joint_lift
+  #     - joint_arm_l3
+  #     - joint_arm_l2
+  #     - joint_arm_l1
+  #     - joint_arm_l0
+  #     - joint_wrist_yaw
+  #     - joint_wrist_pitch
+  #     - joint_wrist_roll
