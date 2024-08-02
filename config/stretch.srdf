@@ -30,6 +30,13 @@
         <group name="stretch_arm"/>
         <group name="position"/>
     </group>
+
+    <group name="stretch_head">
+        <link name="camera_link"/>
+        <joint name="joint_head_pan"/>
+        <joint name="joint_head_tilt"/>
+    </group>
+
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
     <end_effector name="gripper_center" parent_link="link_grasp_center" group="stretch_arm" parent_group="gripper"/>
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
