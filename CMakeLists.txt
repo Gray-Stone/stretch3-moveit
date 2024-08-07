@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(my_stretch_moveit)
+project(stretch3_moveit)
 
 find_package(ament_cmake REQUIRED)
 
