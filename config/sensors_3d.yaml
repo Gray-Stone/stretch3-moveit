@@ -2,14 +2,16 @@
 sensors:
 - head_cloud
 head_cloud:
-    filtered_cloud_topic: /camera/depth/color/filtered_points
+    sensor_plugin: occupancy_map_monitor/PointCloudOctomapUpdater
+    # stretch_core/launch/d435i_high_resolution.launch.py publishes: 
+    # /camera/depth/color/points [sensor_msgs/msg/PointCloud2]
+    point_cloud_topic: /camera/depth/color/points
     max_range: 2.0
     max_update_rate: 1.0
     padding_offset: 0.05 # filter boundary (in cm)
     padding_scale: 1.0
-    point_cloud_topic: /camera/depth/color/points
     point_subsample: 5
-    sensor_plugin: occupancy_map_monitor/PointCloudOctomapUpdater
+    filtered_cloud_topic: /camera/depth/color/filtered_points
 # head_cloud:
 #     sensor_plugin: occupancy_map_monitor/DepthImageOctomapUpdater
 #     image_topic: /camera/depth/image_rect_raw
