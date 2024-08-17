@@ -11,7 +11,8 @@ head_cloud:
     padding_offset: 0.05 # filter boundary (in cm)
     padding_scale: 1.0
     point_subsample: 5
-    filtered_cloud_topic: /camera/depth/color/filtered_points
+    # filtered_cloud_topic: /camera/depth/color/filtered_points
+    filtered_cloud_topic: /camera/depth/color/filtered_points_notused
 # head_cloud:
 #     sensor_plugin: occupancy_map_monitor/DepthImageOctomapUpdater
 #     image_topic: /camera/depth/image_rect_raw

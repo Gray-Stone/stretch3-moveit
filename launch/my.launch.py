@@ -26,7 +26,7 @@ from moveit_configs_utils.launch_utils import (
 
 
 def generate_launch_description():
-    moveit_config = MoveItConfigsBuilder("stretch", package_name="my_stretch_moveit").to_moveit_configs()
+    moveit_config = MoveItConfigsBuilder("stretch", package_name="stretch3_moveit").to_moveit_configs()
     # TODO replace these with my trivel file and lines!
 
     ld = LaunchDescription()
