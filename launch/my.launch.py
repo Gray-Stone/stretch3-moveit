@@ -116,7 +116,6 @@ def generate_launch_description():
 
 
 
-
     # Run Rviz and load the default config to see the state of the move_group node
     ld.add_action(
         DeclareLaunchArgument(
@@ -127,6 +126,7 @@ def generate_launch_description():
 
     rviz_parameters = [
         moveit_config.planning_pipelines,
+        moveit_config.robot_description_kinematics,
         # We don't provide this, expects it to get it from topics.
         # moveit_config.robot_description_kinematics,
     ]
