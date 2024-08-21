@@ -11,6 +11,7 @@
     <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
     <group name="stretch_arm">
         <chain base_link="link_mast" tip_link="link_gripper_s3_body"/>
+        <joint name="base_turn"/>
     </group>
 
     <group name="gripper">
@@ -39,8 +40,10 @@
 
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
     <end_effector name="gripper_center" parent_link="link_grasp_center" group="stretch_arm" parent_group="gripper"/>
+    <end_effector name="gripper_center" parent_link="link_grasp_center" group="gripper" parent_group="gripper"/>
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
-    <virtual_joint name="position" type="planar" parent_frame="odom" child_link="base_link"/>
+    <!-- <virtual_joint name="position" type="planar" parent_frame="odom" child_link="base_link"/> -->
+    <virtual_joint name="position" type="planar" parent_frame="odom" child_link="fake_turn_link"/>
     
     <!-- Added according to tutorial https://moveit.picknik.ai/humble/doc/examples/mobile_base_arm/mobile_base_arm_tutorial.html -->
      <!-- This is actually needed or the planner can't solve for base movement. -->
